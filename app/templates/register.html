@@ -1,45 +1,62 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
-</head>
-<body>
-    <h1>Register</h1>
+{% extends 'base.html' %}
+
+{% block title %}Register - SJSUL{% endblock %}
+
+{% block content %}
+    <h1>Register for an SJSUL account</h1>
     
     {% if error %}
     <p style="color: red;">{{ error }}</p>
     {% endif %}
     
-    <form method="POST">
+    <form action="{{ url_for('register') }}" method="POST">
         {{ form.csrf_token }}
         <p>
+            {{ form.first_name.label }}
+            {{ form.first_name(class="form-control", id="first_name") }}
+            {% for error in form.first_name.errors %}
+            <span style="color: red;">{{ error }}</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.last_name.label }}
+            {{ form.last_name(class="form-control", id="last_name") }}
+            {% for error in form.last_name.errors %}
+            <span style="color: red;">{{ error }}</span>
+            {% endfor %}
+        </p>
+        <p>
             {{ form.username.label }}
-            <input type="text" name="username" id="username" required>
+            {{ form.username(class="form-control", id="username") }}
             {% for error in form.username.errors %}
             <span style="color: red;">{{ error }}</span>
             {% endfor %}
         </p>
         <p>
             {{ form.password.label }}
-            <input type="password" name="password" id="password" required>
+            {{ form.password(class="form-control", id="password") }}
             {% for error in form.password.errors %}
             <span style="color: red;">{{ error }}</span>
             {% endfor %}
         </p>
         <p>
             {{ form.confirm_password.label }}
-            <input type="password" name="confirm_password" id="confirm_password" required>
+            {{ form.confirm_password(class="form-control", id="confirm_password") }}
             {% for error in form.confirm_password.errors %}
             <span style="color: red;">{{ error }}</span>
             {% endfor %}
         </p>
         <p>
-            <input type="submit" value="Register">
+            {{ form.role.label }}
+            {{ form.role(class="form-control", id="role") }}
+            {% for error in form.role.errors %}
+            <span style="color: red;">{{ error }}</span>
+            {% endfor %}
+        </p>
+        <p>
+            <input type="submit" class="btn btn-primary" value="Register">
         </p>
     </form>
 
     <p>Already have an account? <a href="{{ url_for('login') }}">Login</a></p>
-</body>
-</html>
+{% endblock %}
