@@ -19,3 +19,16 @@ class RegistrationForm(FlaskForm):
     confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
     role = SelectField('Role', choices=ROLES, validators=[DataRequired()])
     submit = SubmitField('Register')
+
+class EditProfileForm(FlaskForm):
+    first_name = StringField('First Name', validators=[DataRequired(), Length(max=25)])
+    last_name = StringField('Last Name', validators=[DataRequired(), Length(max=25)])
+    submit = SubmitField('Update Profile')
+
+class ProfileForm(FlaskForm):
+    first_name = StringField('First Name', validators=[DataRequired()], render_kw={'readonly': True})
+    last_name = StringField('Last Name', validators=[DataRequired()], render_kw={'readonly': True})
+    username = StringField('Username', validators=[DataRequired()], render_kw={'readonly': True})
+    role = StringField('Role', validators=[DataRequired()], render_kw={'readonly': True})
+    created_at = StringField('Since', validators=[DataRequired()], render_kw={'readonly': True})
+    submit = SubmitField('Update Profile')

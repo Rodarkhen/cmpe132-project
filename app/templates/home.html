@@ -3,23 +3,6 @@
 {% block title %}Home - SJSUL{% endblock %}
 
 {% block content %}
-    {% if first_name %}
-        <h1>Welcome to SJSUL, {{ first_name }}</h1>
-        {% if user_role == 'librarian' %}
-            <!-- Librarian view -->
-            <p>This is the librarian dashboard. You have access to librarian-specific features.</p>
-        {% elif user_role == 'student' %}
-            <!-- Student view -->
-            <p>This is the student dashboard. You have access to student-specific features.</p>
-        {% elif user_role == 'faculty' %}
-            <!-- Faculty view -->
-            <p>This is the faculty dashboard. You have access to faculty-specific features.</p>
-        {% else %}
-            <!-- Default view for unknown roles -->
-            <p>Welcome! Please login to access your dashboard.</p>
-        {% endif %}
-    {% else %}
         <h1>Welcome to SJSUL, Guest</h1>
         <p>Please login to access your dashboard.</p>
-    {% endif %}
 {% endblock %}

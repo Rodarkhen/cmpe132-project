@@ -4,7 +4,7 @@ from flask import render_template, redirect, url_for, flash, request
 from flask_login import login_user, logout_user, current_user, login_required
 from sqlalchemy.exc import IntegrityError
 from datetime import datetime
-from .forms import LoginForm, RegistrationForm
+from .forms import LoginForm, RegistrationForm, ProfileForm
 from .models import User
 
 @myapp_obj.route('/')
@@ -78,3 +78,17 @@ def register():
             return render_template('register.html', form=form, error=error)
 
     return render_template('register.html', form=form)
+
+@myapp_obj.route('/profile')
+@login_required
+def profile():
+    # Create a profile form and pre-fill it with the current user's information
+    form = ProfileForm()
+    form.first_name.data = current_user.first_name
+    form.last_name.data = current_user.last_name
+    form.username.data = current_user.username
+    form.role.data = current_user.role
+    form.created_at.data = current_user.created_at.strftime("%m-%d-%Y")  
+
+    # Render the profile template with the readonly profile form
+    return render_template('profile.html', form=form)
