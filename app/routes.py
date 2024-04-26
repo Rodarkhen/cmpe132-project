@@ -124,31 +124,22 @@ def edit_user(user_id):
         flash('You do not have permission to edit this user.', 'danger')
         return redirect(url_for('view_users'))
     
-    form = EditProfileForm()  # Assuming ProfileForm is also used for editing user profile
-    
-    # Generate dynamic choices for the role dropdown
-    form.role.data = [(role.name, role.name.capitalize()) for role in Role.query.all()]
-    for roles in form.role.data:
-        print(f'{roles}, ')
+    form = EditProfileForm(obj=user)  # Pass the user object to pre-fill the form
     
     if form.validate_on_submit():
         # Update user information
-        user.first_name = form.first_name.data
-        user.last_name = form.last_name.data
-        user.username = form.username.data
-        user.role = form.role.data
+        user.update_info(form.first_name.data,
+                         form.last_name.data,
+                         form.username.data,
+                         form.role.data)
         # Commit changes to the database
         db.session.commit()
         flash('User information updated successfully.', 'success')
         return redirect(url_for('view_users'))
+    form.created_at.data = current_user.created_at.strftime("%m-%d-%Y")
     
-    # Pre-fill the form with the user's current information
-    form.first_name.data = user.first_name
-    form.last_name.data = user.last_name
-    form.username.data = user.username
-    form.role.data = user.role
+    return render_template('edit_user.html', form=form)
 
-    return render_template('edit_user.html', form=form, user=user)
 
 @myapp_obj.route('/delete_user/<int:user_id>', methods=['POST'])
 @login_required

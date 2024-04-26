@@ -33,5 +33,5 @@ class EditProfileForm(FlaskForm):
     last_name = StringField('Last Name', validators=[DataRequired()])
     username = StringField('Username', validators=[DataRequired()])
     role = SelectField('Role', choices=ROLES, validators=[DataRequired()])
-    created_at = StringField('Since', validators=[DataRequired()])
+    created_at = StringField('Since', validators=[DataRequired()], render_kw={'readonly': True})
     submit = SubmitField('Update Profile')
