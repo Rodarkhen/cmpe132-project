@@ -27,6 +27,14 @@ class User(UserMixin, db.Model):
         entered_password_hash = hashlib.sha256(password_salt.encode('utf-8')).hexdigest()
         # Check if the generated hash matches the stored hash
         return self.password_hash == entered_password_hash
+    
+    # Method for updating user information (for edit profile)
+    def update_info(self, first_name, last_name, username, role):
+        self.first_name = first_name
+        self.last_name = last_name
+        self.username = username
+        self.role = role
+        db.session.commit()
 
     # Method to check if the user is authenticated
     def is_authenticated(self):
@@ -47,6 +55,7 @@ class User(UserMixin, db.Model):
 class Role(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), unique=True, nullable=False)
+    can_view_users = db.Column(db.Boolean, default=False)  # New column
 
 class UserRole(db.Model):
     id = db.Column(db.Integer, primary_key=True)
