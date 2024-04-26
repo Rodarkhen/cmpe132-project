@@ -4,8 +4,8 @@ from flask import render_template, redirect, url_for, flash, request
 from flask_login import login_user, logout_user, current_user, login_required
 from sqlalchemy.exc import IntegrityError
 from datetime import datetime
-from .forms import LoginForm, RegistrationForm, ProfileForm
-from .models import User
+from .forms import LoginForm, RegistrationForm, ProfileForm, EditProfileForm
+from .models import User, Role
 
 @myapp_obj.route('/')
 @myapp_obj.route('/home')
@@ -63,7 +63,17 @@ def register():
                             first_name=form.first_name.data, 
                             last_name=form.last_name.data,
                             created_at=datetime.utcnow())
-            # Hash the password
+            
+            # Check if the role is librarian and set the permission
+            if form.role.data == 'librarian':
+                librarian_role = Role.query.filter_by(name='librarian').first()
+                if librarian_role:
+                    librarian_role.can_view_users = True
+                else:
+                    librarian_role.can_view_users = False
+
+            
+            # Hash the password with salt (SHA256)
             new_user.set_password(form.password.data)
             # Add the user to the database session and commit the transaction
             db.session.add(new_user)
@@ -79,6 +89,7 @@ def register():
 
     return render_template('register.html', form=form)
 
+
 @myapp_obj.route('/profile')
 @login_required
 def profile():
@@ -92,3 +103,65 @@ def profile():
 
     # Render the profile template with the readonly profile form
     return render_template('profile.html', form=form)
+
+@myapp_obj.route('/view_users')
+@login_required
+def view_users():
+    if current_user.role != 'librarian':
+        flash('You do not have permission to view users.', 'danger')
+        return redirect(url_for('dashboard'))
+    
+    users = User.query.all()  # Get all users
+    return render_template('view_users.html', users=users)
+
+@myapp_obj.route('/edit_user/<int:user_id>', methods=['GET', 'POST'])
+@login_required
+def edit_user(user_id):
+    user = User.query.get_or_404(user_id)  # Get the user by ID or return 404 if not found
+    
+    # Check if the current user has permission to edit this user's information
+    if current_user.role != 'librarian' and current_user.id != user.id:
+        flash('You do not have permission to edit this user.', 'danger')
+        return redirect(url_for('view_users'))
+    
+    form = EditProfileForm()  # Assuming ProfileForm is also used for editing user profile
+    
+    # Generate dynamic choices for the role dropdown
+    form.role.data = [(role.name, role.name.capitalize()) for role in Role.query.all()]
+    for roles in form.role.data:
+        print(f'{roles}, ')
+    
+    if form.validate_on_submit():
+        # Update user information
+        user.first_name = form.first_name.data
+        user.last_name = form.last_name.data
+        user.username = form.username.data
+        user.role = form.role.data
+        # Commit changes to the database
+        db.session.commit()
+        flash('User information updated successfully.', 'success')
+        return redirect(url_for('view_users'))
+    
+    # Pre-fill the form with the user's current information
+    form.first_name.data = user.first_name
+    form.last_name.data = user.last_name
+    form.username.data = user.username
+    form.role.data = user.role
+
+    return render_template('edit_user.html', form=form, user=user)
+
+@myapp_obj.route('/delete_user/<int:user_id>', methods=['POST'])
+@login_required
+def delete_user(user_id):
+    user = User.query.get_or_404(user_id)  # Get the user by ID or return 404 if not found
+    
+    # Check if the current user has permission to delete this user
+    if current_user.role != 'librarian':
+        flash('You do not have permission to delete users.', 'danger')
+        return redirect(url_for('view_users'))
+    
+    # Delete the user
+    db.session.delete(user)
+    db.session.commit()
+    flash('User deleted successfully.', 'success')
+    return redirect(url_for('view_users'))

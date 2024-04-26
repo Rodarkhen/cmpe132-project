@@ -47,6 +47,7 @@ class User(UserMixin, db.Model):
 class Role(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), unique=True, nullable=False)
+    can_view_users = db.Column(db.Boolean, default=False)  # New column
 
 class UserRole(db.Model):
     id = db.Column(db.Integer, primary_key=True)
