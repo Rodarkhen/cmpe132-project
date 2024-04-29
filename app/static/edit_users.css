@@ -1,12 +1,12 @@
-.profile-container h2 {
-    text-align: center;
+.form-container h2 {
     /* Center the text horizontally */
+    text-align: center;
 }
 
-.profile-container {
+.form-container {
     /* Adjust the maximum width as needed */
     max-width: 400px;
-    /* Center the container horizontally and add top margin */
+    /* Center the container horizontally */
     margin: 20px auto;
     padding: 20px;
     /* Add border around the container */
@@ -18,16 +18,11 @@
 }
 
 .form-group {
-    /* Add margin between each form group */
     margin-bottom: 20px;
+    /* Add margin between each form group */
 }
 
-input[readonly] {
-    width: calc(100% - 8px);
-    /* Adjust input width to fill remaining space */
-}
-
-.input-label {
+.form-control-label {
     display: inline-block;
     /* Ensure labels are displayed as blocks */
     width: 100px;
@@ -38,21 +33,18 @@ input[readonly] {
     /* Add spacing between label and input */
 }
 
-.input-value {
+.form-control {
     display: inline-block;
-    /* Ensure input values are displayed as blocks */
-    width: calc(100% - 110px);
-    /* Adjust input value width to fill remaining space */
+    /* Ensure inputs are displayed as blocks */
+    width: calc(100% - 160px);
+    /* Adjust input width to fill the remaining space */
     vertical-align: top;
-    /* Align input values to the top */
+    /* Align inputs to the top */
 }
 
-input[readonly]:hover {
-    cursor: default;
-    /* Prevent cursor from changing */
-}
-
-.form-group input[type="text"] {
-    text-align: center;
-    /* Center the text within input fields */
+.btn {
+    display: block;
+    /* Ensure button is displayed as block */
+    margin-top: 20px;
+    /* Add margin at the top of the button */
 }
