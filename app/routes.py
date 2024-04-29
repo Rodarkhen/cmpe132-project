@@ -69,8 +69,6 @@ def register():
                 librarian_role = Role.query.filter_by(name='librarian').first()
                 if librarian_role:
                     librarian_role.can_view_users = True
-                else:
-                    librarian_role.can_view_users = False
 
             
             # Hash the password with salt (SHA256)

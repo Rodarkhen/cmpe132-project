@@ -22,7 +22,7 @@
                 <td>{{ user.first_name }}</td>
                 <td>{{ user.last_name }}</td>
                 <td>{{ user.role }}</td>
-                <td>{{ user.created_at.strftime("%Y-%m-%d %H:%M:%S") }}</td>
+                <td>{{ user.created_at.strftime("%Y-%m-%d") }}</td>
                 <td>
                     <!-- Edit button -->
                     <a href="{{ url_for('edit_user', user_id=user.id) }}" class="btn btn-primary btn-sm">Edit</a>
@@ -35,4 +35,5 @@
             {% endfor %}
         </tbody>
     </table>
+    <link rel="stylesheet" href="{{ url_for('static', filename='view_users.css') }}">
 {% endblock %}
