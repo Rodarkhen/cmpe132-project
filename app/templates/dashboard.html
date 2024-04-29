@@ -9,15 +9,8 @@
         <h1>Welcome to SJSUL, {{ first_name }}</h1>
         {% if user_role == 'librarian' %}
             <!-- Librarian view -->
-            <p>This is the librarian dashboard. You have access to librarian-specific features.</p>
+            <p>This is the LIBRARIAN dashboard. You have access to librarian-specific features.</p>
             <div class="card-container">
-                <div class="card">
-                        <a href="{{ url_for('view_users') }}" class="card-link">
-                        <div class="card-body">
-                            <p class="card-text">View Users</p>
-                        </div>
-                    </a>
-                </div>
                 <div class="card">
                         <a href="{{ url_for('view_books') }}" class="card-link">
                         <div class="card-body">
@@ -26,16 +19,16 @@
                     </a>
                 </div>
                 <div class="card">
-                    <a href="{{ url_for('add_book') }}" class="card-link">
+                        <a href="{{ url_for('view_users') }}" class="card-link">
                         <div class="card-body">
-                            <p class="card-text">Add Book</p>
+                            <p class="card-text">View Users</p>
                         </div>
                     </a>
                 </div>
             </div>
         {% elif user_role == 'student' %}
             <!-- Student view -->
-            <p>This is the student dashboard. You have access to student-specific features.</p>
+            <p>This is the STUDENT dashboard. You have access to student-specific features.</p>
             <div class="card-container">
                 <div class="card">
                     <a href="{{ url_for('view_books') }}" class="card-link">
@@ -47,7 +40,7 @@
             </div>
         {% elif user_role == 'faculty' %}
             <!-- Faculty view -->
-            <p>This is the faculty dashboard. You have access to faculty-specific features.</p>
+            <p>This is the FACULTY dashboard. You have access to faculty-specific features.</p>
             <div class="card-container">
                 <div class="card">
                     <a href="{{ url_for('view_books') }}" class="card-link">

@@ -3,8 +3,10 @@
 /* Center the table */
 .table {
     margin: 0 auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
     /* Adjust width as needed */
-    width: 60%;
+    width: 80%;
     /* Collapse the borders */
     border-collapse: collapse;
 }

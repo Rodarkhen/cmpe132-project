@@ -41,4 +41,6 @@ class BookForm(FlaskForm):
     author = StringField('Author', validators=[DataRequired()])
     isbn = StringField('ISBN', validators=[DataRequired()])
     description = TextAreaField('Description')
+    search = StringField('Search')
     submit = SubmitField('Add Book')
+

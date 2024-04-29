@@ -1,40 +1,65 @@
-/* styles.css */
+/* static/view_books.css */
 
-.card {
-    width: 200px;
-    /* Set the width of the card */
-    margin: 10px;
-    /* Add margin around each card */
-    border: 1px solid #ccc;
-    /* Add a border to the card */
-    border-radius: 5px;
-    /* Add rounded corners to the card */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    /* Add a shadow effect */
+/* Style for the table */
+.book-table {
+    width: 80%;
+    border-collapse: collapse;
+    /* Ensure no space between table cells */
+}
+
+.search-container {
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+.book-table th,
+.book-table td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid transparent;
+    /* Add transparent border to maintain cell size */
+    white-space: nowrap;
+    /* Prevent line breaks */
+    overflow: hidden;
+    /* Hide overflowed content */
+    text-overflow: ellipsis;
+    /* Display ellipsis (...) for overflowed content */
+    max-width: 200px;
+    /* Set a fixed maximum width for the cells */
+}
+
+.book-table th {
+    background-color: #f2f2f2;
+}
+
+/* Hover effect for table rows */
+.book-table tbody tr:hover {
+    background-color: #f0f0f0;
+}
+
+/* Remove space between columns when hovering */
+.book-table tbody tr:hover td,
+.book-table tbody tr:hover th {
+    margin: 0;
+    padding: 10px;
+    /* Restore padding to maintain cell size */
+}
+
+.content-container {
     display: flex;
-    /* Use flexbox to center content */
     flex-direction: column;
-    /* Stack content vertically */
-    justify-content: center;
-    /* Center content vertically */
 }
 
-.card-body {
-    padding: 20px;
-    /* Add padding to the card body */
-    text-align: center;
-    /* Center text horizontally */
-}
-
-.card-text {
-    margin-top: 10px;
-    /* Add margin between text elements */
-}
-
-.book-container {
+.header {
     display: flex;
-    flex-wrap: wrap;
-    /* Allow cards to wrap to the next row */
-    justify-content: flex-start;
-    /* Start filling from left to right */
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.add-book-container {
+    margin-left: auto;
+    /* Push the "Add Book" button to the right */
+    margin-right: auto;
+    /* Push the "Add Book" button to the left */
 }

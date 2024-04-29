@@ -2,12 +2,11 @@
 from app import myapp_obj, db
 from flask import render_template, redirect, url_for, flash, request
 from flask_login import login_user, logout_user, current_user, login_required
+from sqlalchemy import or_
 from sqlalchemy.exc import IntegrityError
 from datetime import datetime
 from .forms import LoginForm, RegistrationForm, ProfileForm, EditProfileForm, BookForm
 from .models import User, Role, Book
-import random
-import string
 @myapp_obj.route('/')
 @myapp_obj.route('/home')
 def home():
@@ -156,9 +155,17 @@ def delete_user(user_id):
     flash('User deleted successfully.', 'success')
     return redirect(url_for('view_users'))
 
-@myapp_obj.route('/view_books')
+@myapp_obj.route('/view_books', methods=['GET', 'POST'])
 def view_books():
-    books = Book.query.all()
+    search_query = request.form.get('search')
+
+    if search_query:
+        # Perform search based on title or author
+        books = Book.query.filter(or_(Book.title.ilike(f'%{search_query}%'), Book.author.ilike(f'%{search_query}%'))).all()
+    else:
+        # If no search query provided, display all books
+        books = Book.query.all()
+
     return render_template('view_books.html', books=books)
 
 @myapp_obj.route('/add_book', methods=['GET', 'POST'])
@@ -181,26 +188,3 @@ def add_book():
 
     return render_template('add_book.html', form=form)
 
-@myapp_obj.route('/add_random_book', methods=['POST'])
-@login_required
-def add_random_book():
-    # Generate random book data
-    title = ''.join(random.choices(string.ascii_uppercase + string.ascii_lowercase, k=10))
-    author = ''.join(random.choices(string.ascii_uppercase + string.ascii_lowercase, k=8))
-    isbn = 'ISBN-' + ''.join(random.choices(string.digits, k=13))
-    description = ''.join(random.choices(string.ascii_uppercase + string.ascii_lowercase + ' ', k=50))
-    
-    # Create a new book object
-    new_book = Book(
-        title=title,
-        author=author,
-        isbn=isbn,
-        description=description
-    )
-    
-    # Add the book to the database session and commit the transaction
-    db.session.add(new_book)
-    db.session.commit()
-    
-    flash('Random book added successfully.', 'success')
-    return redirect(url_for('add_book'))
