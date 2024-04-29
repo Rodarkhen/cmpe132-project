@@ -4,9 +4,10 @@ from flask import render_template, redirect, url_for, flash, request
 from flask_login import login_user, logout_user, current_user, login_required
 from sqlalchemy.exc import IntegrityError
 from datetime import datetime
-from .forms import LoginForm, RegistrationForm, ProfileForm, EditProfileForm
-from .models import User, Role
-
+from .forms import LoginForm, RegistrationForm, ProfileForm, EditProfileForm, BookForm
+from .models import User, Role, Book
+import random
+import string
 @myapp_obj.route('/')
 @myapp_obj.route('/home')
 def home():
@@ -154,3 +155,53 @@ def delete_user(user_id):
     db.session.commit()
     flash('User deleted successfully.', 'success')
     return redirect(url_for('view_users'))
+
+@myapp_obj.route('/view_books')
+@login_required
+def view_books():
+    books = Book.query.all()
+    return render_template('view_books.html', books=books)
+
+@myapp_obj.route('/add_book', methods=['GET', 'POST'])
+@login_required
+def add_book():
+    form = BookForm()
+    if form.validate_on_submit():
+        # Create a new book object
+        new_book = Book(
+            title=form.title.data,
+            author=form.author.data,
+            isbn=form.isbn.data,
+            description=form.description.data
+        )
+        # Add the book to the database session and commit the transaction
+        db.session.add(new_book)
+        db.session.commit()
+        flash('Book added successfully.', 'success')
+        return redirect(url_for('view_books'))  # Redirect to view_books route after adding book
+
+    return render_template('add_book.html', form=form)
+
+@myapp_obj.route('/add_random_book', methods=['POST'])
+@login_required
+def add_random_book():
+    # Generate random book data
+    title = ''.join(random.choices(string.ascii_uppercase + string.ascii_lowercase, k=10))
+    author = ''.join(random.choices(string.ascii_uppercase + string.ascii_lowercase, k=8))
+    isbn = 'ISBN-' + ''.join(random.choices(string.digits, k=13))
+    description = ''.join(random.choices(string.ascii_uppercase + string.ascii_lowercase + ' ', k=50))
+    
+    # Create a new book object
+    new_book = Book(
+        title=title,
+        author=author,
+        isbn=isbn,
+        description=description
+    )
+    
+    # Add the book to the database session and commit the transaction
+    db.session.add(new_book)
+    db.session.commit()
+    
+    flash('Random book added successfully.', 'success')
+    return redirect(url_for('add_book'))

@@ -9,18 +9,28 @@
             <!-- Librarian view -->
             <p>This is the librarian dashboard. You have access to librarian-specific features.</p>
             <a href="{{ url_for('view_users') }}" class="btn btn-primary">View Users</a>
+            <a href="{{ url_for('view_books') }}" class="btn btn-primary">View Books</a>
+            <a href="{{ url_for('add_book') }}" class="btn btn-success">Add Book</a>
         {% elif user_role == 'student' %}
             <!-- Student view -->
             <p>This is the student dashboard. You have access to student-specific features.</p>
+            <!-- Add link to view books -->
+            <a href="{{ url_for('view_books') }}" class="btn btn-primary">View Books</a>
         {% elif user_role == 'faculty' %}
             <!-- Faculty view -->
             <p>This is the faculty dashboard. You have access to faculty-specific features.</p>
+            <!-- Add link to view books -->
+            <a href="{{ url_for('view_books') }}" class="btn btn-primary">View Books</a>
         {% else %}
             <!-- Default view for unknown roles -->
             <p>Welcome! Please login to access your dashboard.</p>
+            <!-- Add link to view books -->
+            <a href="{{ url_for('view_books') }}" class="btn btn-primary">View Books</a>
         {% endif %}
     {% else %}
         <h1>Welcome to SJSUL, Guest</h1>
         <p>Please login to access your dashboard.</p>
+        <!-- Add link to view books -->
+        <a href="{{ url_for('view_books') }}" class="btn btn-primary">View Books</a>
     {% endif %}
 {% endblock %}
