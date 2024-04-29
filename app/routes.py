@@ -157,7 +157,6 @@ def delete_user(user_id):
     return redirect(url_for('view_users'))
 
 @myapp_obj.route('/view_books')
-@login_required
 def view_books():
     books = Book.query.all()
     return render_template('view_books.html', books=books)

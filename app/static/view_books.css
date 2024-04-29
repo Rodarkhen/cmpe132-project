@@ -1,0 +1,40 @@
+/* styles.css */
+
+.card {
+    width: 200px;
+    /* Set the width of the card */
+    margin: 10px;
+    /* Add margin around each card */
+    border: 1px solid #ccc;
+    /* Add a border to the card */
+    border-radius: 5px;
+    /* Add rounded corners to the card */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* Add a shadow effect */
+    display: flex;
+    /* Use flexbox to center content */
+    flex-direction: column;
+    /* Stack content vertically */
+    justify-content: center;
+    /* Center content vertically */
+}
+
+.card-body {
+    padding: 20px;
+    /* Add padding to the card body */
+    text-align: center;
+    /* Center text horizontally */
+}
+
+.card-text {
+    margin-top: 10px;
+    /* Add margin between text elements */
+}
+
+.book-container {
+    display: flex;
+    flex-wrap: wrap;
+    /* Allow cards to wrap to the next row */
+    justify-content: flex-start;
+    /* Start filling from left to right */
+}
