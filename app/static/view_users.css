@@ -1,0 +1,41 @@
+/* view_users.css */
+
+/* Center the table */
+.table {
+    margin: 0 auto;
+    /* Adjust width as needed */
+    width: 60%;
+    /* Collapse the borders */
+    border-collapse: collapse;
+}
+
+/* Center the table header text */
+.table th {
+    text-align: center;
+}
+
+/* Center the table data text */
+.table td {
+    text-align: center;
+    /* Add padding for non-hover state */
+    padding: 8px;
+}
+
+/* Add space between table cells */
+.table td,
+.table th {
+    /* Remove padding */
+    padding: 8;
+}
+
+/* Hover effect for table rows */
+.table tbody tr:hover {
+    /* Change to desired hover background color */
+    background-color: #f5f5f5;
+}
+
+/* Add padding back to cells on hover */
+.table tbody tr:hover td {
+    /* Add padding on hover */
+    padding: 8px;
+}

@@ -1,12 +1,12 @@
-.profile-container h2 {
-    text-align: center;
+.form-container h2 {
     /* Center the text horizontally */
+    text-align: center;
 }
 
-.profile-container {
+.form-container {
     /* Adjust the maximum width as needed */
     max-width: 400px;
-    /* Center the container horizontally and add top margin */
+    /* Center the container horizontally */
     margin: 20px auto;
     padding: 20px;
     /* Add border around the container */
@@ -22,12 +22,7 @@
     margin-bottom: 20px;
 }
 
-input[readonly] {
-    width: calc(100% - 8px);
-    /* Adjust input width to fill remaining space */
-}
-
-.input-label {
+.form-control-label {
     /* Ensure labels are displayed as blocks */
     display: inline-block;
     /* Adjust label width as needed */
@@ -38,21 +33,18 @@ input[readonly] {
     margin-right: 10px;
 }
 
-.input-value {
-    /* Ensure input values are displayed as blocks */
+.form-control {
+    /* Ensure inputs are displayed as blocks */
     display: inline-block;
-    /* Adjust input value width to fill remaining space */
+    /* Adjust input width to fill the remaining space */
     width: calc(100% - 160px);
-    /* Align input values to the top */
+    /* Align inputs to the top */
     vertical-align: top;
 }
 
-input[readonly]:hover {
-    /* Prevent cursor from changing */
-    cursor: no-drop;
-}
-
-.form-group input[type="text"] {
-    /* Center the text within input fields */
-    text-align: center;
+.btn {
+    /* Ensure button is displayed as block */
+    display: block;
+    /* Add margin at the top of the button */
+    margin-top: 20px;
 }
