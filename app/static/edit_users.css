@@ -18,33 +18,33 @@
 }
 
 .form-group {
-    margin-bottom: 20px;
     /* Add margin between each form group */
+    margin-bottom: 20px;
 }
 
 .form-control-label {
-    display: inline-block;
     /* Ensure labels are displayed as blocks */
-    width: 100px;
+    display: inline-block;
     /* Adjust label width as needed */
-    text-align: right;
+    width: 100px;
     /* Align label text to the right */
-    margin-right: 10px;
+    text-align: right;
     /* Add spacing between label and input */
+    margin-right: 10px;
 }
 
 .form-control {
-    display: inline-block;
     /* Ensure inputs are displayed as blocks */
-    width: calc(100% - 160px);
+    display: inline-block;
     /* Adjust input width to fill the remaining space */
-    vertical-align: top;
+    width: calc(100% - 160px);
     /* Align inputs to the top */
+    vertical-align: top;
 }
 
 .btn {
-    display: block;
     /* Ensure button is displayed as block */
-    margin-top: 20px;
+    display: block;
     /* Add margin at the top of the button */
+    margin-top: 20px;
 }

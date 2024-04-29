@@ -28,31 +28,31 @@ input[readonly] {
 }
 
 .input-label {
-    display: inline-block;
     /* Ensure labels are displayed as blocks */
-    width: 100px;
+    display: inline-block;
     /* Adjust label width as needed */
-    text-align: right;
+    width: 100px;
     /* Align label text to the right */
-    margin-right: 10px;
+    text-align: right;
     /* Add spacing between label and input */
+    margin-right: 10px;
 }
 
 .input-value {
-    display: inline-block;
     /* Ensure input values are displayed as blocks */
-    width: calc(100% - 110px);
+    display: inline-block;
     /* Adjust input value width to fill remaining space */
-    vertical-align: top;
+    width: calc(100% - 160px);
     /* Align input values to the top */
+    vertical-align: top;
 }
 
 input[readonly]:hover {
-    cursor: default;
     /* Prevent cursor from changing */
+    cursor: no-drop;
 }
 
 .form-group input[type="text"] {
-    text-align: center;
     /* Center the text within input fields */
+    text-align: center;
 }
