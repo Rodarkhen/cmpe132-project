@@ -58,8 +58,23 @@
 }
 
 .add-book-container {
-    margin-left: auto;
     /* Push the "Add Book" button to the right */
-    margin-right: auto;
+    margin-left: auto;
     /* Push the "Add Book" button to the left */
+    margin-right: auto;
+}
+
+.btn-actions {
+    padding: 2px 10px;
+    background-color: #ececec;
+    border-radius: 2.5px;
+    border: 1px solid #0f0f0f;
+    color: #000000;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.btn-actions:hover {
+    cursor: default;
+    background-color: #e2e0e0;
 }
