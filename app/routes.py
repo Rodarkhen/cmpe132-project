@@ -2,11 +2,11 @@
 from app import myapp_obj, db
 from flask import render_template, redirect, url_for, flash, request
 from flask_login import login_user, logout_user, current_user, login_required
+from sqlalchemy import or_
 from sqlalchemy.exc import IntegrityError
 from datetime import datetime
-from .forms import LoginForm, RegistrationForm, ProfileForm, EditProfileForm
-from .models import User, Role
-
+from .forms import LoginForm, RegistrationForm, ProfileForm, EditProfileForm, BookForm
+from .models import User, Role, Book
 @myapp_obj.route('/')
 @myapp_obj.route('/home')
 def home():
@@ -154,3 +154,37 @@ def delete_user(user_id):
     db.session.commit()
     flash('User deleted successfully.', 'success')
     return redirect(url_for('view_users'))
+
+@myapp_obj.route('/view_books', methods=['GET', 'POST'])
+def view_books():
+    search_query = request.form.get('search')
+
+    if search_query:
+        # Perform search based on title or author
+        books = Book.query.filter(or_(Book.title.ilike(f'%{search_query}%'), Book.author.ilike(f'%{search_query}%'))).all()
+    else:
+        # If no search query provided, display all books
+        books = Book.query.all()
+
+    return render_template('view_books.html', books=books)
+
+@myapp_obj.route('/add_book', methods=['GET', 'POST'])
+@login_required
+def add_book():
+    form = BookForm()
+    if form.validate_on_submit():
+        # Create a new book object
+        new_book = Book(
+            title=form.title.data,
+            author=form.author.data,
+            isbn=form.isbn.data,
+            description=form.description.data
+        )
+        # Add the book to the database session and commit the transaction
+        db.session.add(new_book)
+        db.session.commit()
+        flash('Book added successfully.', 'success')
+        return redirect(url_for('view_books'))  # Redirect to view_books route after adding book
+
+    return render_template('add_book.html', form=form)
+

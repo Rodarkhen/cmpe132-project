@@ -1,6 +1,6 @@
 # forms.py
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, SelectField
+from wtforms import StringField, PasswordField, SubmitField, SelectField, TextAreaField
 from wtforms.validators import DataRequired, Length, EqualTo
 
 # Define possible roles
@@ -35,3 +35,12 @@ class EditProfileForm(FlaskForm):
     role = SelectField('Role', choices=ROLES, validators=[DataRequired()])
     created_at = StringField('Since', validators=[DataRequired()], render_kw={'readonly': True})
     submit = SubmitField('Update Profile')
+
+class BookForm(FlaskForm):
+    title = StringField('Title', validators=[DataRequired()])
+    author = StringField('Author', validators=[DataRequired()])
+    isbn = StringField('ISBN', validators=[DataRequired()])
+    description = TextAreaField('Description')
+    search = StringField('Search')
+    submit = SubmitField('Add Book')
+

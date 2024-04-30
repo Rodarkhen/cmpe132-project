@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Books Available</h2>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='view_books.css') }}">
+    <div class="content-container">
+        <div class="header">
+            <div class="search-container">
+                <form action="{{ url_for('view_books') }}" method="post" class="form-inline">
+                    <input type="text" name="search" class="form-control mr-2" placeholder="Search by title or author">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </form>
+            </div>
+            <div class="add-book-container">
+                <a href="{{ url_for('add_book') }}" class="btn btn-success">
+                    <img src="{{ url_for('static', filename='/images/add_book.png') }}" alt="Add Book" height="32px" title="Add Book">
+                </a>
+            </div>
+        </div>
+        <table class="table book-table">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>ISBN</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for book in books %}
+                    <tr>
+                        <td>{{ book.title }}</td>
+                        <td>{{ book.author }}</td>
+                        <td>{{ book.isbn }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
