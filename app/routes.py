@@ -188,3 +188,41 @@ def add_book():
 
     return render_template('add_book.html', form=form)
 
+@myapp_obj.route('/edit_book/<int:book_id>', methods=['GET', 'POST'])
+@login_required
+def edit_book(book_id):
+    # Check if the current user is a librarian
+    if current_user.role != 'librarian':
+        flash('You do not have permission to edit books.', 'danger')
+        return redirect(url_for('view_books'))
+
+    book = Book.query.get_or_404(book_id)  # Get the book by ID or return 404 if not found
+    form = BookForm(obj=book)  # Pass the book object to pre-fill the form
+
+    if form.validate_on_submit():
+        # Update book information
+        book.title = form.title.data
+        book.author = form.author.data
+        book.isbn = form.isbn.data
+        book.description = form.description.data
+        # Commit changes to the database
+        db.session.commit()
+        flash('Book information updated successfully.', 'success')
+        return redirect(url_for('view_books'))
+
+    return render_template('edit_book.html', form=form, book=book)
+
+@myapp_obj.route('/delete_book/<int:book_id>', methods=['POST'])
+@login_required
+def delete_book(book_id):
+    # Check if the current user is a librarian
+    if current_user.role != 'librarian':
+        flash('You do not have permission to delete books.', 'danger')
+        return redirect(url_for('view_books'))
+
+    book = Book.query.get_or_404(book_id)  # Get the book by ID or return 404 if not found
+    # Delete the book
+    db.session.delete(book)
+    db.session.commit()
+    flash('Book deleted successfully.', 'success')
+    return redirect(url_for('view_books'))
