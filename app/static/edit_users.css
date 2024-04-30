@@ -3,6 +3,28 @@
     text-align: center;
 }
 
+.button-container {
+    display: flex;
+    justify-content: center;
+}
+
+.btn-actions {
+    padding: 2px 10px;
+    background-color: #ececec;
+    border-radius: 2.5px;
+    border: 1px solid #0f0f0f;
+    color: #000000;
+    text-decoration: none;
+    font-size: 14px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.btn-actions:hover {
+    cursor: default;
+    background-color: #e2e0e0;
+}
+
 .form-container {
     /* Adjust the maximum width as needed */
     max-width: 400px;

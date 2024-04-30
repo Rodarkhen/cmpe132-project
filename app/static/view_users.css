@@ -14,6 +14,8 @@
 /* Center the table header text */
 .table th {
     text-align: center;
+    background-color: #e5e5e5;
+    padding: 10px;
 }
 
 /* Center the table data text */
@@ -27,7 +29,7 @@
 .table td,
 .table th {
     /* Remove padding */
-    padding: 8;
+    padding: 8px;
 }
 
 /* Hover effect for table rows */
@@ -40,4 +42,9 @@
 .table tbody tr:hover td {
     /* Add padding on hover */
     padding: 8px;
+}
+
+.btn-edit-user {
+    margin-right: 10px;
+    text-decoration: none;
 }
