@@ -110,6 +110,12 @@ def view_users():
         return redirect(url_for('dashboard'))
     
     users = User.query.all()  # Get all users
+
+    # Check each user's username and modify if it matches the current user's username
+    for user in users:
+        if user.username == current_user.username:
+            user.username += " (You)"
+            
     return render_template('view_users.html', users=users)
 
 @myapp_obj.route('/edit_user/<int:user_id>', methods=['GET', 'POST'])

@@ -16,20 +16,18 @@
 .book-table td {
     padding: 10px;
     text-align: left;
-    border: 1px solid transparent;
-    /* Add transparent border to maintain cell size */
-    white-space: nowrap;
     /* Prevent line breaks */
-    overflow: hidden;
+    white-space: nowrap;
     /* Hide overflowed content */
-    text-overflow: ellipsis;
+    overflow: hidden;
     /* Display ellipsis (...) for overflowed content */
-    max-width: 200px;
+    text-overflow: ellipsis;
     /* Set a fixed maximum width for the cells */
+    max-width: 200px;
 }
 
 .book-table th {
-    background-color: #f2f2f2;
+    background-color: #e5e5e5;
 }
 
 /* Hover effect for table rows */
@@ -40,9 +38,9 @@
 /* Remove space between columns when hovering */
 .book-table tbody tr:hover td,
 .book-table tbody tr:hover th {
-    margin: 0;
-    padding: 10px;
+    margin: 0px;
     /* Restore padding to maintain cell size */
+    padding: 10px;
 }
 
 .content-container {

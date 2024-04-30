@@ -30,8 +30,22 @@
                 <label for="created_at" class="form-control-label">Created at:</label>
                 <input type="text" id="created_at" value="{{ form.created_at.data }}" class="form-control" readonly>
             </div>
-            <button type="submit" class="btn btn-primary">Save Changes</button>
+            <div class="button-container">
+                <button type="submit" class="btn btn-actions" onclick="return confirmSave()">Apply Changes</button>
+                <a href="{{ url_for('view_users') }}" class="btn btn-actions" onclick="return confirmCancel()">Cancel</a>
+            </div>
         </form>
     </div>
+
+    <script>
+        function confirmSave() {
+            return confirm("Are you sure you want to apply changes?");
+        }
+    
+        function confirmCancel() {
+            return confirm("Are you sure you want to cancel changes?");
+        }
+    </script>
+
   <link rel="stylesheet" href="{{ url_for('static', filename='edit_users.css') }}">
 {% endblock %}
